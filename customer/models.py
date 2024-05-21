@@ -15,7 +15,7 @@ class CustomUser(AbstractUser):
     def __str__(self) -> str:
         return self.username
 
-class Profiles(models.Model):
+class Profile(models.Model):
     name=models.CharField(max_length=30)
     age_limit=models.CharField(choices=AGE_CHOICE,max_length=30)
     uuid=models.UUIDField(default=uuid.uuid4)
