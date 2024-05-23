@@ -21,6 +21,9 @@ from customer import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/',views.signup,name='signup'),
-    path('login',views.log_in,name='login')
+    path('login/',views.log_in,name='login'),
+    path('profile/',views.profil,name='profile'),
+    path('logout/',views.log_out,name='logout'),
+    path('pro_creat',views.profile_creat,name='profile_creat')
     
 ]
