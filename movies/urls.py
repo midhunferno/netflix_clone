@@ -24,7 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index,name='index'),
     path('list_movie/<str:profile_id>/',views.movie_list,name='list_movie'),
-    path('movie_detail/<str:movies_id>/',views.movie_details,name='movie_detail')
+    path('movie_detail/<str:movies_id>/',views.movie_details,name='movie_detail'),
+    path('play/<uuid:movies_id>/',views.play,name='play_movie')
 
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 # username=midhunferno

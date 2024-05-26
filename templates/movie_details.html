@@ -4,29 +4,30 @@
 {% block content %}
 
 <main class='bg-primary_black min-h-screen w-full'>
-    <section class="h-screen relative bg-no-repeat pb-8 pl-6 flex justify-end items-end bg-cover" style="background-image: url('{{movie.image.url}}');">
+    <section class="h-screen relative bg-no-repeat pb-8 pl-6 flex justify-end items-end bg-cover"
+        style="background-image: url('{{movie.image.url}}');">
         <div style="justify-content: center;">
             <h2 class="text-6xl font-semibold text-white my-4" style="font-weight: bolder;">
                 {{ movie.title }}
             </h2>
             <p class=" w-11/12 md:w-5/12 font-medium  my-4">
-               {{ movie.description }}
+                {{ movie.description }}
             </p>
             <div class="flex my-4">
+                <a href="{% url 'play_movie' movies_id=movie.uuid %}">
+                    <button class="flex items-center bg-white py-2 px-5 rounded-md">
+                        <ion-icon name="play" class="text-2xl"></ion-icon>
+                        <span class="ml-3 font-medium">
+                            Play
+                        </span>
+                    </button>
+                </a>
 
-                <button class="flex items-center bg-white py-2 px-5 rounded-md">
-                    <ion-icon name="play" class="text-2xl"></ion-icon>
-                    <span class="ml-3 font-medium">
-                        Play
-                    </span>
-                </button>
-
-                
             </div>
         </div>
-    </section> 
+    </section>
     <section class='bg-primary_black  min-h-screen flex justify-center py-10'>
-        <div class="p-8 w-10/12 relative" >
+        <div class="p-8 w-10/12 relative">
             <h2 class="text-gray-200 text-3xl font-medium">
                 Description
             </h2>
@@ -37,19 +38,19 @@
             </div>
         </div>
     </section>
-    
+
 </main>
 <script>
     const nav = document.querySelector('nav')
 
-    document.addEventListener("scroll",e=>{
-        
-        if(scrollY>200){
+    document.addEventListener("scroll", e => {
+
+        if (scrollY > 200) {
             nav.classList.add('bg-gray-900')
-      
-        }else{
+
+        } else {
             nav.classList.remove('bg-gray-900')
-            
+
         }
     })
 

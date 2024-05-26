@@ -27,3 +27,16 @@ def movie_details(request,movies_id):
         return render(request,'movie_details.html',context)
     except Movies.DoesNotExist:
         return redirect('profile')
+    
+def play(request,movies_id):
+    try:
+        movie=Movies.objects.get(uuid=movies_id)
+        video=movie.video.all()
+        context={
+            'movie':movie,
+            'video':video
+        }
+        return render(request,'play_movie.html',context)
+    except Movies.DoesNotExist:
+        return redirect('profile')
+    
