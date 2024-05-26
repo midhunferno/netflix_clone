@@ -23,6 +23,9 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index,name='index'),
-    path('list_movie',views.movie_list,name='list_movie')
+    path('list_movie/<str:profile_id>/',views.movie_list,name='list_movie'),
+    path('movie_detail/<str:movies_id>/',views.movie_details,name='movie_detail')
 
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+# username=midhunferno
+# pwd=midhunmon

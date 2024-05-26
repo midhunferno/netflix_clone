@@ -62,5 +62,6 @@ def profile_creat(request):
         )
         profil_user.save()
         if profil_user:
+            request.user.profile.add(profil_user)
             return redirect('profile')
     return render(request,'profile_creation.html')
