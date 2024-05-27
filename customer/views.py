@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import CustomUser,Profile
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def signup(request):
@@ -43,25 +44,30 @@ def log_in(request):
 def log_out(request):
     logout(request)
     return redirect('index')
-
+@login_required
 def profil(request): 
-    profil_show=Profile.objects.all()
+    profil_show = request.user.profile.all()
     context={
         'profil_show':profil_show
     }
     return render(request,'profile.html',context)
 
+@login_required
 def profile_creat(request):
     if request.method == 'POST':
         profile_name=request.POST['profile_name']
         age_limit=request.POST['age_limit']
-
-        profil_user=Profile.objects.create(
-            name=profile_name,
-            age_limit=age_limit                                       
-        )
-        profil_user.save()
-        if profil_user:
-            request.user.profile.add(profil_user)
-            return redirect('profile')
+        if profile_name and age_limit:
+           try:  
+                profil_user=Profile.objects.create(
+                    name=profile_name,
+                    age_limit=age_limit                                       
+                )
+                profil_user.save()
+                request.user.profile.add(profil_user)
+                return redirect('profile')
+           except Exception as e:
+                print(e)
+                context = {'error': 'An error occurred while creating the profile.'}
+                return render(request,'profile_creation.html',context)
     return render(request,'profile_creation.html')
