@@ -2,36 +2,105 @@
 {% load static %}
 
 {% block content %}
+<style>
+    /* CSS */
+    .button-48 {
+        border-radius: 7px;
+        appearance: none;
+        background-color: #FFFFFF;
+        border-width: 0;
+        box-sizing: border-box;
+        color: #000000;
+        cursor: pointer;
+        display: inline-block;
+        font-family: Clarkson, Helvetica, sans-serif;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 1em;
+        margin: 0;
+        opacity: 1;
+        outline: 0;
+        padding: 1.5em 2.2em;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        text-rendering: geometricprecision;
+        text-transform: uppercase;
+        transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1), background-color 100ms cubic-bezier(.694, 0, 0.335, 1), color 100ms cubic-bezier(.694, 0, 0.335, 1);
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: baseline;
+        white-space: nowrap;
+    }
+
+    .button-48:before {
+        animation: opacityFallbackOut .5s step-end forwards;
+        backface-visibility: hidden;
+        background-color: #e00909;
+        clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
+        content: "";
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        transform: translateZ(0);
+        transition: clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1), -webkit-clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1);
+        width: 100%;
+    }
+
+    .button-48:hover:before {
+        animation: opacityFallbackIn 0s step-start forwards;
+        clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
+    }
+
+    .button-48:after {
+        background-color: #FFFFFF;
+    }
+
+    .button-48 span {
+        z-index: 1;
+        position: relative;
+    }
+</style>
 
 <main class='bg-primary_black min-h-screen w-full'>
-    <section class="h-screen relative bg-no-repeat pb-8 pl-6 flex justify-end items-end bg-cover"
-        style="background-image: url('{{movie.image.url}}');">
-        <div style="justify-content: center;">
-            <h2 class="text-6xl font-semibold text-white my-4" style="font-weight: bolder;">
-                {{ movie.title }}
-            </h2>
-            <p class=" w-11/12 md:w-5/12 font-medium  my-4">
-                {{ movie.description }}
-            </p>
-            <div class="flex my-4">
-                <a href="{% url 'play_movie' movies_id=movie.uuid %}">
-                    <button class="flex items-center bg-white py-2 px-5 rounded-md">
-                        <ion-icon name="play" class="text-2xl"></ion-icon>
-                        <span class="ml-3 font-medium">
-                            Play
-                        </span>
-                    </button>
-                </a>
 
+
+    <div class="row">
+        <div class="col-md-6 my-5">
+            <center>
+            <div class="section w-full" style="width: 58%;">
+                <div><img src="{{movie.image.url}}" alt=""></div>
+            </div>
+            </center>
+        </div>
+        <div class="col-md-6 my-5 px-5">
+            <div class="items-center justify-center">
+                <h2 class="text-6xl font-semibold text-white my-4 font-bold">
+                    {{ movie.title }}
+                </h2>
+                <p class="w-11/12 md:w-5/12 font-medium my-4">
+                    {{ movie.description }}
+                </p>
+                <div class="flex my-4">
+                    <a href="{% url 'play_movie' movies_id=movie.uuid %}">
+
+                        <button class="button-48" role="button"><span class="text">PLAY</span></button>
+                    </a>
+                </div>
             </div>
         </div>
-    </section>
-    <section class='bg-primary_black  min-h-screen flex justify-center py-10'>
+    </div>
+
+
+    <section class='bg-primary_black min-h-screen flex justify-center py-10'>
         <div class="p-8 w-10/12 relative">
             <h2 class="text-gray-200 text-3xl font-medium">
                 Description
             </h2>
-            <div class="flex justify-center  items-center min-w-full  movie_lis">
+            <div class="flex justify-center items-center min-w-full movie_lis">
                 <p class="text-gray-100 text-lg">
                     {{ movie.description }}
                 </p>
@@ -40,20 +109,17 @@
     </section>
 
 </main>
+
 <script>
     const nav = document.querySelector('nav')
 
-    document.addEventListener("scroll", e => {
-
+    document.addEventListener("scroll", () => {
         if (scrollY > 200) {
             nav.classList.add('bg-gray-900')
-
         } else {
             nav.classList.remove('bg-gray-900')
-
         }
     })
-
 </script>
 
 {% endblock content %}
